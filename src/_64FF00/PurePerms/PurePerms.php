@@ -56,7 +56,7 @@ class PurePerms extends PluginBase{
 		  888  888    "Y8888P"        888  888        888        "Y8888P"   "Y8888P"
 	*/
 
-	const MAIN_PREFIX = "§l§f[§6ACM§f] »§r§7 ";
+	const MAIN_PREFIX = "§l§f[§aACM§f] »§r§7 ";
 
 	const CORE_PERM = "\x70\x70\x65\x72\x6d\x73\x2e\x63\x6f\x6d\x6d\x61\x6e\x64\x2e\x70\x70\x69\x6e\x66\x6f";
 
@@ -102,6 +102,14 @@ class PurePerms extends PluginBase{
 	}
 
 	protected function onEnable() : void{
+        $this->getLogger()->info("
+  ____                          ____                                  
+ |  _ \   _   _   _ __    ___  |  _ \    ___   _ __   _ __ ___    ___ 
+ | |_) | | | | | | '__|  / _ \ | |_) |  / _ \ | '__| | '_ ` _ \  / __|
+ |  __/  | |_| | | |    |  __/ |  __/  |  __/ | |    | | | | | | \__ \
+ |_|      \__,_| |_|     \___| |_|      \___| |_|    |_| |_| |_| |___/
+        by fernanACM and _64FF00 - https://github.com/fernanACM
+                                                                      ");
 		$this->registerCommands();
 
 		$this->setProvider();
