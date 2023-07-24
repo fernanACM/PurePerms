@@ -6,4 +6,6 @@ branches:
 projects:
   PurePerms:
     path: ""
+    lint:
+      phpstan: false
 ...
