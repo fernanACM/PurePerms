@@ -32,6 +32,7 @@ class NoeulAPI{
 	const NOEUL_VERSION = '1.0.0';
 
 	private $needAuth = [];
+	private PurePerms $plugin;
 
 	public function __construct(PurePerms $plugin){
 		$this->plugin = $plugin;

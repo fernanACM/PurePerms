@@ -6,9 +6,9 @@ use _64FF00\PurePerms\event\PPGroupChangedEvent;
 use _64FF00\PurePerms\event\PPRankExpiredEvent;
 use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerLoginEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\server\CommandEvent;
 use pocketmine\lang\Translatable;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
@@ -64,15 +64,15 @@ class PPListener implements Listener{
 		}
 	}
 
-	public function onPlayerCommand(PlayerCommandPreprocessEvent $event){
-		$message = $event->getMessage();
-		$player = $event->getPlayer();
+	public function onPlayerCommand(CommandEvent $event){
+		$message = $event->getCommand();
+		$player = $event->getSender();
 
 		if(substr($message, 0, 1) === "/"){
 			$command = substr($message, 1);
 			$args = explode(" ", $command);
 
-			if(!$this->plugin->getNoeulAPI()->isAuthed($event->getPlayer())){
+			if(!$this->plugin->getNoeulAPI()->isAuthed($event->getSender())){
 				$event->cancel();
 
 				if($args[0] === "ppsudo" or $args[0] === "help"){

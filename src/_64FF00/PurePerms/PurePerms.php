@@ -184,7 +184,7 @@ class PurePerms extends PluginBase{
 	 * @param bool $onEnable
 	 */
 	private function setProvider($onEnable = true){
-		$providerName = $this->getConfigValue("data-provider");
+		$providerName = (string)$this->getConfigValue("data-provider");
 
 		switch(strtolower($providerName)){
 			case "mysql":
@@ -464,7 +464,7 @@ class PurePerms extends PluginBase{
 		if($this->pmDefaultPerms === []){
 			/** @var Permission $permission */
 			foreach(PermissionManager::getInstance()->getPermissions() as $permission){
-				if(strpos($permission->getName(), DefaultPermissions::ROOT) !== false)
+				if(strpos($permission->getName(), DefaultPermissions::ROOT_OPERATOR) !== false)
 					$this->pmDefaultPerms[] = $permission;
 			}
 		}

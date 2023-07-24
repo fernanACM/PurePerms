@@ -21,6 +21,8 @@ class UserDataManager{
 		  888  888    "Y8888P"        888  888        888        "Y8888P"   "Y8888P"
 	*/
 
+	private PurePerms $plugin;
+
 	/**
 	 * @param PurePerms $plugin
 	 */

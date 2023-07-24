@@ -21,6 +21,7 @@ class PPMySQLTask extends Task{
 	*/
 
 	private $db;
+	private PurePerms $plugin;
 
 	/**
 	 * @param PurePerms $plugin

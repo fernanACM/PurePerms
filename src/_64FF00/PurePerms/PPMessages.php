@@ -26,6 +26,8 @@ class PPMessages{
 
 	private $langList = [];
 
+	private PurePerms $plugin;
+
 	/**
 	 * @param PurePerms $plugin
 	 */
@@ -81,7 +83,7 @@ class PPMessages{
 	}
 
 	public function loadMessages(){
-		$defaultLang = $this->plugin->getConfigValue("default-language");
+		$defaultLang = (string)$this->plugin->getConfigValue("default-language");
 
 		foreach($this->langList as $langName){
 			if(strtolower($defaultLang) == $langName){
