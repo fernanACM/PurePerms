@@ -27,6 +27,7 @@ use _64FF00\PurePerms\provider\DefaultProvider;
 use _64FF00\PurePerms\provider\MySQLProvider;
 use _64FF00\PurePerms\provider\ProviderInterface;
 use _64FF00\PurePerms\provider\YamlV1Provider;
+use _64FF00\PurePerms\scorehud\PurePermsScore;
 use _64FF00\PurePerms\task\PPExpDateCheckTask;
 use pocketmine\permission\DefaultPermissions;
 use pocketmine\permission\Permission;
@@ -35,6 +36,7 @@ use pocketmine\permission\PermissionManager;
 use pocketmine\player\IPlayer;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
+use pocketmine\Server;
 use pocketmine\utils\SingletonTrait;
 use pocketmine\world\World;
 use Ramsey\Uuid\UuidInterface;
@@ -117,7 +119,10 @@ class PurePerms extends PluginBase{
 		$this->registerPlayers();
 
 		$this->getServer()->getPluginManager()->registerEvents(new PPListener($this), $this);
-
+		# ScoreHud
+        if($this->scoreHudExists()){
+            $this->getServer()->getPluginManager()->registerEvents(new PurePermsScore, $this);
+        }
 		$this->getScheduler()->scheduleRepeatingTask(new PPExpDateCheckTask($this), 72000);
 	}
 
@@ -729,4 +734,22 @@ class PurePerms extends PluginBase{
 			$this->unregisterPlayer($player);
 		}
 	}
+
+	/**
+     * by fernanACM
+     * @return boolean
+     */
+    public function scoreHudExists(): bool{
+        if(($scorehud = Server::getInstance()->getPluginManager()->getPlugin("ScoreHud")) !== null){
+            $version = $scorehud->getDescription()->getVersion();
+            if(version_compare($version, "6.0.0", ">=")){
+                if(version_compare($version, "6.1.0", "<")){
+                    PurePerms::getInstance()->getLogger()->warning("Outdated version of ScoreHud (v" . $version . ") detected, requires >= v6.1.0. Integration disabled.");
+                    return false;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 }

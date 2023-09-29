@@ -65,32 +65,24 @@ class PPListener implements Listener{
 	}
 
 	public function onPlayerCommand(CommandEvent $event){
-		$message = $event->getCommand();
+		$command = $event->getCommand();
 		$player = $event->getSender();
-
-		if(substr($message, 0, 1) === "/"){
-			$command = substr($message, 1);
-			$args = explode(" ", $command);
-
-			if(!$this->plugin->getNoeulAPI()->isAuthed($event->getSender())){
-				$event->cancel();
-
-				if($args[0] === "ppsudo" or $args[0] === "help"){
-					$this->plugin->getServer()->dispatchCommand($player, $command);
-				}else{
-					$this->plugin->getNoeulAPI()->sendAuthMsg($player);
-				}
+		if(!$player instanceof Player)return;
+		if(!$this->plugin->getNoeulAPI()->isAuthed($player)){
+			$event->cancel();
+			if($command === "ppsudo" || $command === "help") {
+				$this->plugin->getServer()->dispatchCommand($player, $command);
 			}else{
-				$disableOp = $this->plugin->getConfigValue("disable-op");
-
-				if($disableOp and $args[0] === "op"){
-					$event->cancel();
-                    
-                    $player->sendMessage(new Translatable(TextFormat::RED . "%commands.generic.permission"));
-				}
+				$this->plugin->getNoeulAPI()->sendAuthMsg($player);
+			}
+		}else{
+			$disableOp = $this->plugin->getConfigValue("disable-op");
+			if($disableOp && $command === "op"){
+				$event->cancel();
+				$player->sendMessage(new Translatable(TextFormat::RED . "%commands.generic.permission"));
 			}
 		}
-	}
+	}	
 
 	/**
 	 * @param PlayerLoginEvent $event
