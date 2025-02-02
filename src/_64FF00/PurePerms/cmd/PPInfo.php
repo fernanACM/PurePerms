@@ -5,7 +5,7 @@ namespace _64FF00\PurePerms\cmd;
 use _64FF00\PurePerms\PurePerms;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\command\ConsoleCommandSender;
+use pocketmine\console\ConsoleCommandSender;
 use pocketmine\plugin\Plugin;
 use pocketmine\utils\TextFormat;
 

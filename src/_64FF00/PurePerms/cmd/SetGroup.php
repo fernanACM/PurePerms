@@ -5,7 +5,7 @@ namespace _64FF00\PurePerms\cmd;
 use _64FF00\PurePerms\PurePerms;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\command\ConsoleCommandSender;
+use pocketmine\console\ConsoleCommandSender;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\utils\TextFormat;
@@ -83,10 +83,10 @@ class SetGroup extends Command{
 				return true;
 			}
 
-			$levelName = $level->getName();
+			$levelName = $level->getFolderName();
 		}
 
-		$superAdminRanks = $this->plugin->getConfigValue("superadmin-ranks");
+		$superAdminRanks = (array)$this->plugin->getConfigValue("superadmin-ranks");
 
 		foreach(array_values($superAdminRanks) as $value){
 			$tmpSuperAdminRanks[$value] = 1;
